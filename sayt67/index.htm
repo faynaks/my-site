@@ -1,0 +1,50 @@
+<script>
+function getBotReply(text) {
+  text = text.toLowerCase();
+
+  if (text.includes("привет")) return "Привет! 😊";
+  if (text.includes("как дела")) return "Отлично! А у тебя?";
+  if (text.includes("кто ты")) return "Я простой JS-бот 🤖";
+  if (text.includes("пока")) return "Пока! 👋";
+
+  return "Я пока не очень умный 😅";
+}
+
+function send() {
+  let input = document.getElementById("text");
+  let text = input.value.trim();
+  if (!text) return;
+
+  let messages = document.getElementById("messages");
+
+  let userRow = document.createElement("div");
+  userRow.className = "msg-row user-row";
+
+  let userMsg = document.createElement("div");
+  userMsg.className = "msg user";
+  userMsg.textContent = text;
+
+  userRow.appendChild(userMsg);
+  messages.appendChild(userRow);
+  input.value = "";
+
+  setTimeout(() => {
+    let botRow = document.createElement("div");
+    botRow.className = "msg-row bot-row";
+
+    let avatar = document.createElement("img");
+    avatar.src = "avatar.jpg";
+    avatar.className = "avatar";
+
+    let botMsg = document.createElement("div");
+    botMsg.className = "msg bot";
+    botMsg.textContent = getBotReply(text);
+
+    botRow.appendChild(avatar);
+    botRow.appendChild(botMsg);
+    messages.appendChild(botRow);
+
+    messages.scrollTop = messages.scrollHeight;
+  }, 500);
+}
+</script>
